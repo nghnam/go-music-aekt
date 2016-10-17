@@ -42,7 +42,6 @@ func loadConfig() {
 func init() {
 	loadConfig()
 	logger = log.New(os.Stdout, "", log.Ldate|log.Lmicroseconds)
-	logger.Println("Music AEKT started")
 }
 
 func generateHTML(writer http.ResponseWriter, filenames ...string) {
