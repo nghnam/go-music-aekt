@@ -42,89 +42,113 @@ func play(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Play()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func stop(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Stop()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func togglePause(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.TogglePause()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func pause(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Pause()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
-
 }
 
 func unpause(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Unpause()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func next(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Next()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func prev(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Prev()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func clear(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Clear()
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func playlist(writer http.ResponseWriter, request *http.Request) {
 	playlist := os.Getenv("HOME") + "/" + config.MocDirectory + "/" + config.MocPlaylist
-	pl := player.ShowPlaylist(playlist)
-	m := make(map[string]interface{})
-	m["playlist"] = pl
-	payload, _ := json.Marshal(m)
-	writer.Header().Set("Content-Type", "application/json")
-	writer.Write(payload)
+	pl, err := player.ShowPlaylist(playlist)
+	if err != nil {
+		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		m := make(map[string]interface{})
+		m["playlist"] = pl
+		payload, _ := json.Marshal(m)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.Write(payload)
+	}
 }
 
 func volumeDown(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Volume(config.VolumeCommand, config.VolumeDown)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
 
 func volumeUp(writer http.ResponseWriter, request *http.Request) {
 	_, err := player.Volume(config.VolumeCommand, config.VolumeUp)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(writer, "Failed")
+	} else {
+		fmt.Fprintf(writer, "OK")
 	}
-	fmt.Fprintf(writer, "OK")
 }
