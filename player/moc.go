@@ -2,7 +2,6 @@ package player
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"os/exec"
 	"strings"
@@ -53,12 +52,12 @@ func Info() (string, error) {
 	return mocp("-i")
 }
 
-func ShowPlaylist(path string) []map[string]string {
+func ShowPlaylist(path string) ([]map[string]string, error) {
 	file, err := os.Open(path)
-	defer file.Close()
 	if err != nil {
-		fmt.Println("Can not open playlist file")
+		return nil, err
 	}
+	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	pl := []map[string]string{}
 	for scanner.Scan() {
@@ -74,7 +73,7 @@ func ShowPlaylist(path string) []map[string]string {
 			pl = append(pl, m)
 		}
 	}
-	return pl
+	return pl, nil
 
 }
 
