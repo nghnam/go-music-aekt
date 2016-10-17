@@ -1,0 +1,50 @@
+{{ define "body" }}
+<div class="ui main text container" style="text-align: center">
+  <br>
+  <h1 class="ui header">Music AEKT</h1>
+  <p></p>
+
+  <form class="ui form">
+    <div class="field">
+      <div class="ui icon input">
+        <input type="text" name="music_link" placeholder="Paste link mp3.zing.vn ...">
+        <i class="paste icon"></i>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="ui checkbox">
+        <input type="checkbox" tabindex="0" class="hidden" name="terms">
+        <label>Tôi hứa sẽ <strong>không next</strong> bài của các bạn</label>
+      </div>
+    </div>
+
+
+    <input type="submit" class="ui button teal submit" value="Thêm vào playlist">
+
+    <div class="ui error message"></div>
+  </form>
+
+  <br>
+  <div class="ui inverted segment" id="player">
+    <h3 class="ui header">Nhạc đang chơi</h3>
+
+    <div class="ui progress tiny" id="play-progress">
+      <div class="bar disabled"></div>
+      <div class="label" style="font-size: 16px; color: #fff"> <i class="notched circle loading icon"></i> Đang tải thông tin</div>
+    </div>
+    <p id='play-state'></p>
+  </div>
+
+  <div class="ui">
+    <div class="ui piled segments playlist">
+      <div class="ui segment">
+        <p>Chưa có bài nào</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{{ end }}

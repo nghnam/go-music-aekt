@@ -1,0 +1,18 @@
+{{ define "layout" }}
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta charset="UTF-8">
+         <link rel="stylesheet" type="text/css" href="/static/semantic/dist/semantic.min.css">
+         <script src="/static/js/jquery.min.js"></script>
+         <script src="/static/semantic/dist/semantic.min.js"></script>
+
+         {{ template "title" }}
+    </head>
+    <body>
+        {{ template "body" }}
+    </body>
+
+    {{ template "script" }}}
+</html>
+{{ end }}
