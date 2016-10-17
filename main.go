@@ -26,5 +26,6 @@ func main() {
 		Addr:    config.Address,
 		Handler: mux,
 	}
+	logger.Println("Music AEKT started")
 	server.ListenAndServe()
 }
