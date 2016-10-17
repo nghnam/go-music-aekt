@@ -17,7 +17,7 @@ func index(writer http.ResponseWriter, request *http.Request) {
 	case "POST":
 		request.ParseForm()
 		url := request.Form["music_link"][0]
-		zc, _ := zing.NewZingClient(url, config.UserAgent, config.SaveLocation)
+		zc, _ := zing.NewClient(url, config.UserAgent, config.SaveLocation)
 		file := zc.DownloadMP3File()
 		player.Append(file)
 	}

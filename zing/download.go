@@ -86,7 +86,7 @@ func (c *ZingClient) DownloadMP3File() string {
 	return file
 }
 
-func NewZingClient(url string, ua string, location string) (*ZingClient, error) {
+func NewClient(url string, ua string, location string) (*ZingClient, error) {
 	c := &ZingClient{
 		InputURL:  url,
 		UserAgent: ua,
