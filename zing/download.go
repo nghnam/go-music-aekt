@@ -38,7 +38,7 @@ func (c *ZingClient) getMetaURL() {
 }
 
 func extractMetaURL(payload string) string {
-	pattern := `<div id="html5player" data-xml="(.*?)"`
+	pattern := `var xml_link = "(.*?)";`
 	r := regexp.MustCompile(pattern)
 	match := r.FindStringSubmatch(payload)
 	if match != nil {
