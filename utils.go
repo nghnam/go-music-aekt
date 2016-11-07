@@ -27,10 +27,10 @@ var logger *log.Logger
 
 func loadConfig() {
 	file, err := os.Open("config.json")
-	defer file.Close()
 	if err != nil {
 		log.Fatalln("Can not open config file")
 	}
+	defer file.Close()
 	decoder := json.NewDecoder(file)
 	config = Configuration{}
 	err = decoder.Decode(&config)
