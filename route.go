@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
+	"github.com/nghnam/go-music-aekt/nhaccuatui"
 	"github.com/nghnam/go-music-aekt/player"
 	"github.com/nghnam/go-music-aekt/zing"
 )
@@ -17,8 +19,14 @@ func index(writer http.ResponseWriter, request *http.Request) {
 	case "POST":
 		request.ParseForm()
 		url := request.Form["music_link"][0]
-		zc, _ := zing.NewClient(url, config.UserAgent, config.SaveLocation)
-		file := zc.DownloadMP3File()
+		var file string
+		if strings.Contains(url, "mp3.zing.vn") {
+			dl, _ := zing.NewClient(url, config.UserAgent, config.SaveLocation)
+			file = dl.DownloadMP3File()
+		} else if strings.Contains(url, "nhaccuatui") {
+			dl, _ := nhaccuatui.NewClient(url, config.UserAgent, config.SaveLocation)
+			file = dl.DownloadMP3File()
+		}
 		player.Append(file)
 	}
 }
