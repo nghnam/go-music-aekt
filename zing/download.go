@@ -20,7 +20,7 @@ type ZingClient struct {
 }
 
 var httpClient = &http.Client{
-	Timeout: time.Second * 10,
+	Timeout: time.Second * 60,
 }
 
 func (c *ZingClient) Do(url string) string {
