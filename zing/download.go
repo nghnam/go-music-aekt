@@ -1,6 +1,7 @@
 package zing
 
 import (
+	"encoding/json"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -17,6 +18,29 @@ type ZingClient struct {
 	MP3URL    string
 	FileName  string
 	Location  string
+}
+
+type ZingMeta struct {
+	Data []Data `json:"data"`
+	Msg  string `json:"msg"`
+}
+
+type Data struct {
+	Artist     string       `json:"artist"`
+	ArtistList []ArtistList `json:"artist_list"`
+	Cover      string       `json:"cover"`
+	ID         string       `json:"id"`
+	Link       string       `json:"link"`
+	Lyric      string       `json:"lyric"`
+	Name       string       `json:"name"`
+	Quanlities []string     `json:"qualities"`
+	SourceBase string       `json:"source_base"`
+	SourceList []string     `json:"source_list"`
+}
+
+type ArtistList struct {
+	Link string `json:"link"`
+	Name string `json:"name"`
 }
 
 var httpClient = &http.Client{
@@ -54,13 +78,9 @@ func (c *ZingClient) getMP3URL() {
 }
 
 func extractMP3URL(payload string) string {
-	pattern := `"(s1\.mp3\.zdn.*?)"`
-	r := regexp.MustCompile(pattern)
-	match := r.FindStringSubmatch(payload)
-	if match != nil {
-		return "http://" + match[1]
-	}
-	return ""
+	var zingmeta ZingMeta
+	json.Unmarshal([]byte(payload), &zingmeta)
+	return "http://" + zingmeta.Data[0].SourceList[1]
 }
 
 func createFileName(payload string) string {
