@@ -44,7 +44,7 @@ type Track struct {
 }
 
 var httpClient = &http.Client{
-	Timeout: time.Second * 10,
+	Timeout: time.Second * 60,
 }
 
 func (c *NCTClient) Do(url string) string {
